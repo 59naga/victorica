@@ -4,6 +4,8 @@
 
 > a simple html beautifier
 
+[DEMO](http://jsrun.it/59naga/victorica)
+
 ## Installation
 ### Via npm
 
