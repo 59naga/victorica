@@ -1,0 +1,61 @@
+{
+  "name": "victorica",
+  "version": "0.0.0-alpha",
+  "description": "a simple html beautifier",
+
+  "main": "lib",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
+    "compile": "coffee --output lib --bare --compile src",
+    
+    "start": "jasminetea --file index.coffee --watch",
+    "test": "jasminetea --file index.coffee --lint --cover --report",
+
+    "localhost": "zuul test --ui jasmine2 --local 59798 --open",
+    "test-cloud": "zuul test",
+
+    "prebuild": "$(opc bower opc-scripts.build) | exorcist $(opc bower name).js.map -b . > $(opc bower name).js",
+    "build": "$(opc bower opc-scripts.uglify)",
+    "postbuild": "rm $(opc bower name).js $(opc bower name).js.map && wc -c $(opc bower name).min.js",
+    "update": "git tag v$(opc package version) && git push --tags"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm test"
+    }
+  },
+
+  "dependencies": {
+  },
+  "devDependencies": {
+    "browserify": "^11.2.0",
+    "coffeeify": "^1.1.0",
+    "exorcist": "^0.4.0",
+    "ghooks": "^0.3.2",
+    "jasminetea": "^0.2.1",
+    "object-parser-cli": "^0.0.1",
+    "zuul": "^3.6.0"
+  },
+  
+  "keywords": [
+    "html",
+    "beautify",
+    "prettify",
+    "victrorica",
+    "is",
+    "pretty"
+  ],
+  "author": "59naga <i59naga@icloud.com> (http://berabou.me)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/59naga/victorica.git"
+  },
+  "bugs": {
+    "url": "https://github.com/59naga/victorica/issues"
+  },
+  "homepage": "https://github.com/59naga/victorica#readme"
+}
