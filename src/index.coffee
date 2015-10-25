@@ -3,6 +3,8 @@ Utility= (require './utility').Utility
 
 # Public
 class Victorica extends Utility
+  maxLevel: 100
+
   beautify: (str,{ignore,space,removeSelfClose,debug}={})->
     html= ''
 
@@ -59,6 +61,9 @@ class Victorica extends Utility
 
       html+= chunk
       level+= 1 unless tag.close? or tag.alone or tag.void
+      if level>@maxLevel
+        line= (str.match /\n/g)?.length ? 0
+        throw new Error "unexpected `#{tag.name}` close element (line #{line})"
 
       offset= str.indexOf '<',tag.last
 

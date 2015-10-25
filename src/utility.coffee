@@ -102,8 +102,18 @@ class Utility
       begin= str.indexOf '>',offset
       end= str.indexOf close,begin
 
-      content= str.slice begin+1,end
+      if end is -1
+        close= ''
+
+        end= str.indexOf '<',begin
+        end= str.length if end is -1
+        content= str.slice begin+1,end
+
+      else
+        content= str.slice begin+1,end
+      
       last= end+close.length
+
       return {name,open,content,close,last,alone:yes,void:isVoid,ignore:yes}
 
     alone= isVoid
