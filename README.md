@@ -34,7 +34,7 @@ $ bower install victorica --save
 ### Via rawgit.com(the simple way)
 
 ```html
-<script src="https://cdn.rawgit.com/59naga/victorica/b2c03503bf69de5970e97bc9b2b20665db9d3075/victorica.min.js"></script>
+<script src="https://cdn.rawgit.com/59naga/victorica/ad8f6fcda76c5a03c047deeef9458ad8dfddeef7/victorica.min.js"></script>
 <script>
   console.log(victorica); //object
 </script>
