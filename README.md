@@ -63,8 +63,38 @@ Adjust the indentation using `options.space` (default `  `).
 </html>
 ```
 
+`.beautify` of default:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>index.html</title>
+    <script>
+  console.log("<dont touch this>");
+</script>
+    <style>/*ignore me*/</style>
+  </head>
+  <body>
+    <pre>foo bar baz</pre>
+    <div>
+      <span><strong>Lorem</strong> <em>ipsum</em> dolor sit amet.</span>
+      <pre>  dont touch
+  this.  </pre>
+    </div>
+    <!--this
+ is
+  comment -->
+  </body>
+</html>
+```
+
+usage:
+
 ```js
 // Dependencies
+var victorica= require('victorica');
 var fs= require('fs');
 var html= fs.readFileSync('index.html','utf8');
 
@@ -81,28 +111,6 @@ var options= {
 };
 
 console.log(victorica.beautify(html,options));
-// <!DOCTYPE html>
-// <html>
-//   <head>
-//     <meta charset="UTF-8">
-//     <title>index.html</title>
-//     <script>
-//   console.log("<dont touch this>");
-// </script>
-//     <style>/*ignore me*/</style>
-//   </head>
-//   <body>
-//     <pre>foo bar baz</pre>
-//     <div>
-//       <span><strong>Lorem</strong> <em>ipsum</em> dolor sit amet.</span>
-//       <pre>  dont touch
-//   this.  </pre>
-//     </div>
-//     <!--this
-//  is
-//   comment -->
-//   </body>
-// </html>
 ```
 
 License
