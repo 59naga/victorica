@@ -49,7 +49,7 @@ Adjust the indentation using `options.space` (default `  `).
 ```html
 <!DOCTYPE html><html>
 <head><meta charset="UTF-8" />
-<title>日本語</title><script>
+<title>index.html</title><script>
   console.log("<dont touch this>");
 </script><style>/*ignore me*/</style></head>
 <body><pre>foo bar baz</pre><div>
@@ -64,7 +64,7 @@ Adjust the indentation using `options.space` (default `  `).
 ```
 
 ```js
-var victorica= require('victorica');
+// Dependencies
 var fs= require('fs');
 var html= fs.readFileSync('index.html','utf8');
 
@@ -85,7 +85,7 @@ console.log(victorica.beautify(html,options));
 // <html>
 //   <head>
 //     <meta charset="UTF-8">
-//     <title>日本語</title>
+//     <title>index.html</title>
 //     <script>
 //   console.log("<dont touch this>");
 // </script>

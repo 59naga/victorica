@@ -145,6 +145,25 @@ describe 'victorica',->
         expect(result).toBe '<meta charset="UTF-8" />'
 
     describe 'issues',->
+      it '#1',->
+        fixture= '<!doctype html><html><head><title>はろわ</title>
+        <meta/></head><body><main></main></body></html>'
+
+        result= victorica.beautify fixture
+
+        expect(result).toBe '''
+        <!doctype html>
+        <html>
+          <head>
+            <title>はろわ</title>
+            <meta>
+          </head>
+          <body>
+            <main></main>
+          </body>
+        </html>
+        '''
+
       xit 'TODO: element of open implies close',->
         fixture= '''
         <ul><li>foo<li>bar<li>baz</ul>

@@ -36,7 +36,7 @@ class Utility
   ]
 
   voids: [
-    '!doctype'
+    'doctype'
 
     # http://www.w3.org/TR/2011/WD-html-markup-20110113/syntax.html#void-element
     'area'
@@ -69,11 +69,7 @@ class Utility
     else
       close= tag
 
-    nameLeft= 1
-    nameRight= tag.indexOf ' '
-    nameRight= tag.length-1 if nameRight is -1
-    name= (tag.slice nameLeft,nameRight)?.toLowerCase() or ''
-    name= name.slice 1 if name[0] is '/'
+    name= (tag.match(/<\!?\/?([-\w]*)/)[1] or '').toLowerCase()
 
     if (str.slice offset,offset+4) is '<!--'
       name= 'comment'

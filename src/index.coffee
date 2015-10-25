@@ -12,8 +12,9 @@ class Victorica extends Utility
     debug?= false
 
     if debug
-      console.log '\nLevel, Open, Close, Ignore, Alone'
-      console.log 'L O C I A --------chunk--------'
+      console.log '\n'
+      console.log 'Level, Open, Close, Ignore, Void, Alone, Uplevel'
+      console.log 'L O C I V A U -------- chunk --------'
 
     level= 0
     offset= str.indexOf '<',offset
@@ -33,7 +34,7 @@ class Victorica extends Utility
       chunk= ''
       if content
         indent= @getIndent level,space
-        content= content.replace /\n\s*/,'\n'+indent if content.match /^\n\s*$/
+        content= content.replace /\n\s*/g,'\n'+indent if content.match /^\n\s*$/
 
         chunk+= content
 
@@ -49,7 +50,8 @@ class Victorica extends Utility
 
       if debug
         console.log level,
-          ~~(tag.open?),~~(tag.close?),~~(tag.ignore?),~~tag.alone,
+          ~~(tag.open?),~~(tag.close?),~~(tag.ignore?),~~tag.alone,~~tag.void
+          ~~(not (tag.close? or tag.alone or tag.void))
           JSON.stringify chunk
 
       html+= chunk
@@ -58,8 +60,8 @@ class Victorica extends Utility
       offset= str.indexOf '<',tag.last
 
     if debug
-      console.log 'L O C I A --------chunk--------'
-      console.log '\nLevel, Open, Close, Ignore, Alone'
+      console.log 'L O C I V A U -------- chunk --------'
+      console.log 'Level, Open, Close, Ignore, Void, Alone, Uplevel'
 
     return str if html is ''
 
