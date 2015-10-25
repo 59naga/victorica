@@ -30,6 +30,9 @@ class Victorica extends Utility
         content+= '\n'+indent
 
       level-= 1 unless tag.open?
+      if level<0
+        line= (str.match /\n/g)?.length ? 0
+        throw new Error "unexpected `#{tag.name}` close element (line #{line})"
 
       chunk= ''
       if content

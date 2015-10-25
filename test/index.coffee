@@ -176,6 +176,11 @@ describe 'victorica',->
         </html>
         '''
 
+      it '#3',->
+        brokenCloseTag= ->
+          victorica.beautify '\n</strong</html>'
+        expect(brokenCloseTag).toThrowError Error,'unexpected `strong` close element (line 1)'
+
       xit 'TODO: element of open implies close',->
         fixture= '''
         <ul><li>foo<li>bar<li>baz</ul>
