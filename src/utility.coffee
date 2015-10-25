@@ -69,7 +69,12 @@ class Utility
     else
       close= tag
 
-    name= (tag.match(/<\!?\/?([-\w]*)/)[1] or '').toLowerCase()
+    name= (tag.match(/<\!?\/?([-\w]*)/)?[1] or '').toLowerCase()
+    if name.length is 0
+      contentEnd= str.indexOf '<',offset+1
+      contentEnd= str.length if contentEnd is -1
+      content= str.slice offset,contentEnd
+      return {open:'',close:'',content,last:contentEnd}
 
     if (str.slice offset,offset+4) is '<!--'
       name= 'comment'
@@ -90,7 +95,7 @@ class Utility
     isOpen= not (isClose or isSelfClose)
     isVoid= name in @voids
 
-    # treated as alone. To disable the indentation(for level)
+    # handle as alone. To disable the indentation(for level)
     if name in ignores
       close= '</'+name+'>'
 

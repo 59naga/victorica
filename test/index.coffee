@@ -164,6 +164,18 @@ describe 'victorica',->
         </html>
         '''
 
+      it '#2',->
+        expect(victorica.beautify '<').toBe '<'
+        fixture= '<html><</html>'
+
+        result= victorica.beautify fixture
+
+        expect(result).toBe '''
+        <html>
+          <
+        </html>
+        '''
+
       xit 'TODO: element of open implies close',->
         fixture= '''
         <ul><li>foo<li>bar<li>baz</ul>
