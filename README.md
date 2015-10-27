@@ -15,7 +15,7 @@ $ npm install victorica --save
 
 ```js
 var victorica= require('victorica');
-console.log(victorica); //object
+console.log(victorica); //function
 ```
 
 ### Via bower
@@ -27,22 +27,22 @@ $ bower install victorica --save
 ```html
 <script src="bower_components/victorica/victorica.min.js"></script>
 <script>
-  console.log(victorica); //object
+  console.log(victorica); //function
 </script>
 ```
 
 ### Via rawgit.com(the simple way)
 
 ```html
-<script src="https://cdn.rawgit.com/59naga/victorica/418bfaedd810c2909d46ec53b0c218ccc1a1d024/victorica.min.js"></script>
+<script src="https://cdn.rawgit.com/59naga/victorica/v0.0.0-beta.4/victorica.min.js"></script>
 <script>
-  console.log(victorica); //object
+  console.log(victorica); //function
 </script>
 ```
 
 # API
 
-## .beautify(html,options) -> beautified
+## victorica(html,options) -> beautified
 
 Adjust the indentation using `options.space` (default `  `).
 
@@ -63,7 +63,7 @@ Adjust the indentation using `options.space` (default `  `).
 </html>
 ```
 
-`.beautify` of default:
+`victorica` of default:
 
 ```html
 <!DOCTYPE html>
@@ -110,7 +110,7 @@ var options= {
   removeSelfClose: true,
 };
 
-console.log(victorica.beautify(html,options));
+console.log(victorica(html,options));
 ```
 
 License

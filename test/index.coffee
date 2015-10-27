@@ -5,204 +5,219 @@ victorica= require '../src'
 
 # Specs
 describe 'victorica',->
-  describe '.beautify',->
-    describe 'default',->
-      it 'no touch',->
-        fixture= '''
-        <pre>
-          hyper
-            text
-            <!-- comment -->
-              markup
-                language
-        </pre>
-        '''
+  describe 'default',->
+    it 'no touch',->
+      fixture= '''
+      <pre>
+        hyper
+          text
+          <!-- comment -->
+            markup
+              language
+      </pre>
+      '''
 
-        result= victorica.beautify fixture
+      result= victorica fixture
 
-        expect(result).toBe '''
-        <pre>
-          hyper
-            text
-            <!-- comment -->
-              markup
-                language
-        </pre>
-        '''
+      expect(result).toBe '''
+      <pre>
+        hyper
+          text
+          <!-- comment -->
+            markup
+              language
+      </pre>
+      '''
 
-      it 'mixin',->
-        fixture= '''
-        <!DOCTYPE html><html>
-        <head><meta charset="UTF-8" />
-        <title>日本語</title><script>
-          console.log("<dont touch this>")
-        </script><style>/*ignore me*/</style></head>
-        <body><pre>foo bar baz</pre><div>
-          <span><strong>Lorem</strong> <em>ipsum</em> dolor sit amet.</span>
-          <pre>  dont touch
-          this.  </pre>
-        </div><!--this
-         is
-          comment -->
+    it 'mixin',->
+      fixture= '''
+      <!DOCTYPE html><html>
+      <head><meta charset="UTF-8" />
+      <title>日本語</title><script>
+        console.log("<dont touch this>")
+      </script><style>/*ignore me*/</style></head>
+      <body><pre>foo bar baz</pre><div>
+        <span><strong>Lorem</strong> <em>ipsum</em> dolor sit amet.</span>
+        <pre>  dont touch
+        this.  </pre>
+      </div><!--this
+       is
+        comment -->
+      </body>
+      </html>
+      '''
+
+      result= victorica fixture
+
+      expect(result).toBe '''
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>日本語</title>
+          <script>
+        console.log("<dont touch this>")
+      </script>
+          <style>/*ignore me*/</style>
+        </head>
+        <body>
+          <pre>foo bar baz</pre>
+          <div>
+            <span><strong>Lorem</strong> <em>ipsum</em> dolor sit amet.</span>
+            <pre>  dont touch
+        this.  </pre>
+          </div>
+          <!--this
+       is
+        comment -->
         </body>
-        </html>
-        '''
+      </html>
+      '''
 
-        result= victorica.beautify fixture
+  describe 'use options',->
+    it "options.space='\\t'",->
+      fixture= '<!DOCTYPE html><html lang="en"><head></head></html>'
 
-        expect(result).toBe '''
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <meta charset="UTF-8">
-            <title>日本語</title>
-            <script>
-          console.log("<dont touch this>")
-        </script>
-            <style>/*ignore me*/</style>
-          </head>
-          <body>
-            <pre>foo bar baz</pre>
-            <div>
-              <span><strong>Lorem</strong> <em>ipsum</em> dolor sit amet.</span>
-              <pre>  dont touch
-          this.  </pre>
-            </div>
-            <!--this
-         is
-          comment -->
-          </body>
-        </html>
-        '''
+      result= victorica fixture,{space:'\t'}
 
-    describe 'use options',->
-      it "options.space='\\t'",->
-        fixture= '<!DOCTYPE html><html lang="en"><head></head></html>'
+      expect(result).toBe '''
+      <!DOCTYPE html>
+      <html lang="en">
+      \t<head></head>
+      </html>
+      '''
 
-        result= victorica.beautify fixture,{space:'\t'}
+    it 'options.ignore=[]',->
+      fixture= '''
+      <!DOCTYPE html><html>
+      <head><meta charset="UTF-8" />
+      <title>日本語</title><script>
+        console.log("dont touch this")
+      </script><style>/*ignore me*/</style></head>
+      <body ui-view><pre>foo bar baz</pre><div>
+        <span><strong>Lorem</strong> <em>ipsum</em> dolor sit amet.</span>
+        <pre>  dont touch
+        this.  </pre>
+      </div><!--this
+       is
+        comment -->
+      </body>
+      </html>
+      '''
 
-        expect(result).toBe '''
-        <!DOCTYPE html>
-        <html lang="en">
-        \t<head></head>
-        </html>
-        '''
+      result= victorica fixture,{ignore:[]}
 
-      it 'options.ignore=[]',->
-        fixture= '''
-        <!DOCTYPE html><html>
-        <head><meta charset="UTF-8" />
-        <title>日本語</title><script>
-          console.log("dont touch this")
-        </script><style>/*ignore me*/</style></head>
-        <body ui-view><pre>foo bar baz</pre><div>
-          <span><strong>Lorem</strong> <em>ipsum</em> dolor sit amet.</span>
-          <pre>  dont touch
-          this.  </pre>
-        </div><!--this
-         is
-          comment -->
+      expect(result).toBe '''
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <title>日本語</title>
+          <script>
+        console.log("dont touch this")
+      </script>
+          <style>/*ignore me*/</style>
+        </head>
+        <body ui-view>
+          <pre>foo bar baz</pre>
+          <div>
+            <span>
+              <strong>Lorem</strong>
+              <em>ipsum</em>
+               dolor sit amet.
+            </span>
+            <pre>  dont touch
+        this.  </pre>
+          </div>
+          <!--this
+       is
+        comment -->
         </body>
-        </html>
-        '''
+      </html>
+      '''
 
-        result= victorica.beautify fixture,{ignore:[]}
+    it 'options.removeSelfClose=false',->
+      fixture= '<meta charset="UTF-8" />'
 
-        expect(result).toBe '''
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <meta charset="UTF-8">
-            <title>日本語</title>
-            <script>
-          console.log("dont touch this")
-        </script>
-            <style>/*ignore me*/</style>
-          </head>
-          <body ui-view>
-            <pre>foo bar baz</pre>
-            <div>
-              <span>
-                <strong>Lorem</strong>
-                <em>ipsum</em>
-                 dolor sit amet.
-              </span>
-              <pre>  dont touch
-          this.  </pre>
-            </div>
-            <!--this
-         is
-          comment -->
-          </body>
-        </html>
-        '''
+      result= victorica fixture,{removeSelfClose:no}
 
-      it 'options.removeSelfClose=false',->
-        fixture= '<meta charset="UTF-8" />'
+      expect(result).toBe '<meta charset="UTF-8" />'
 
-        result= victorica.beautify fixture,{removeSelfClose:no}
+  describe 'issues',->
+    it '#1',->
+      fixture= '<!doctype html><html><head><title>はろわ</title>
+      <meta/></head><body><main></main></body></html>'
 
-        expect(result).toBe '<meta charset="UTF-8" />'
+      result= victorica fixture
 
-    describe 'issues',->
-      it '#1',->
-        fixture= '<!doctype html><html><head><title>はろわ</title>
-        <meta/></head><body><main></main></body></html>'
+      expect(result).toBe '''
+      <!doctype html>
+      <html>
+        <head>
+          <title>はろわ</title>
+          <meta>
+        </head>
+        <body>
+          <main></main>
+        </body>
+      </html>
+      '''
 
-        result= victorica.beautify fixture
+    it '#2',->
+      expect(victorica '<').toBe '<'
+      fixture= '<html><</html>'
 
-        expect(result).toBe '''
-        <!doctype html>
-        <html>
-          <head>
-            <title>はろわ</title>
-            <meta>
-          </head>
-          <body>
-            <main></main>
-          </body>
-        </html>
-        '''
+      result= victorica fixture
 
-      it '#2',->
-        expect(victorica.beautify '<').toBe '<'
-        fixture= '<html><</html>'
+      expect(result).toBe '''
+      <html>
+        <
+      </html>
+      '''
 
-        result= victorica.beautify fixture
+    it '#3',->
+      brokenCloseTag= ->
+        victorica '\n</strong</html>'
+      expect(brokenCloseTag).toThrowError Error,'unexpected `strong` close element (line 1)'
 
-        expect(result).toBe '''
-        <html>
-          <
-        </html>
-        '''
+    it '#4',->
+      fixture= '<span><strong>foo<strong>bar<strong>baz'
+      result= victorica fixture
 
-      it '#3',->
-        brokenCloseTag= ->
-          victorica.beautify '\n</strong</html>'
-        expect(brokenCloseTag).toThrowError Error,'unexpected `strong` close element (line 1)'
+      expect(result).toBe '''
+      <span>
+      <strong>foo
+      <strong>bar
+      <strong>baz
+      '''
 
-      it '#4',->
-        fixture= '<span><strong>foo<strong>bar<strong>baz'
-        result= victorica.beautify fixture
+    it '#5',->
+      fixture= '''
+      <p>
+        foo
+          bar
+            <p>
+      '''
+      result= victorica fixture
 
-        expect(result).toBe '''
-        <span>
-        <strong>foo
-        <strong>bar
-        <strong>baz
-        '''
+      expect(result).toBe '''
+      <p>
+        foo
+          bar
+            <p>
+      '''
 
-      xit 'TODO: element of open implies close',->
-        fixture= '''
-        <ul><li>foo<li>bar<li>baz</ul>
-        '''
+    xit 'TODO: element of open implies close',->
+      fixture= '''
+      <ul><li>foo<li>bar<li>baz</ul>
+      '''
 
-        result= victorica.beautify fixture,{debug:yes}
+      result= victorica fixture,{debug:yes}
 
-        expect(result).toBe '''
-        <ul>
-          <li>foo
-          <li>bar
-          <li>baz
-        </ul>
-        '''
+      expect(result).toBe '''
+      <ul>
+        <li>foo
+        <li>bar
+        <li>baz
+      </ul>
+      '''

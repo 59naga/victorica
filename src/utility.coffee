@@ -59,7 +59,7 @@ class Utility
 
   # To determine the appearance by the name of element
   # Doesn't handle the innerHTML If comment or name exists ignoreList
-  parse: (str,offset,ignores=[])->
+  parse: (str,offset,ignores=[])=>
     left= str.indexOf '<',offset
     right= (str.indexOf '>',left)+1
 
@@ -123,12 +123,18 @@ class Utility
       # Skip innerHTML formatting
       if alone
         content= str.slice right,(str.indexOf '<',right)
-        close= '</'+name+'>'
-        last= (str.indexOf '<',right)+close.length
+        close= ('</'+name+'>')
+
+        last= str.indexOf '<',right
+        if last is -1
+          last= str.length
+          close= null
+        
+        last+= ('</'+name+'>').length
 
     return {name,open,content,close,last,alone,void:isVoid,ignore:no,closeSelf:isSelfClose}
 
-  getIndent: (repeat,space='  ')->
+  getIndent: (repeat,space='  ')=>
     repeat= 0 unless repeat>-1
     (new Array repeat+1).join space
 

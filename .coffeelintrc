@@ -1,8 +1,4 @@
 {
-  "cyclomatic_complexity": {
-    "value": 25,
-    "level": "error"
-  },
   "max_line_length": {
     "value": 100,
     "level": "error",
@@ -13,6 +9,9 @@
   },
   "no_unnecessary_double_quotes": {
     "level": "error"
+  },
+  "no_unnecessary_fat_arrows": {
+    "level": "ignore"
   },
   "prefer_english_operator": {
     "level": "error"

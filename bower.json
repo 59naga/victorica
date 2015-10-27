@@ -17,6 +17,7 @@
     "build": [
       "browserify ./src",
       "--transform coffeeify",
+      "--transform envify",
       "--standalone victorica",
       "--extension .coffee",
       "--debug"

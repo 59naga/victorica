@@ -5,7 +5,7 @@ Utility= (require './utility').Utility
 class Victorica extends Utility
   maxLevel: 100
 
-  beautify: (str,{ignore,space,removeSelfClose,debug}={})->
+  beautify: (str,{ignore,space,removeSelfClose,debug}={})=>
     html= ''
 
     ignore?= @ignores

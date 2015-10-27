@@ -1,6 +1,6 @@
 {
   "name": "victorica",
-  "version": "0.0.0-beta.3",
+  "version": "0.0.0-beta.4",
   "description": "a simple html beautifier",
 
   "main": "lib",
@@ -10,6 +10,8 @@
   "scripts": {
     "prepublish": "node -e \"if(process.env.TRAVIS){}else{process.exit(1)}\" && npm run compile || echo skip prepublish",
     "compile": "coffee --output lib --bare --compile src",
+
+    "env": "node -e \"console.log(process.env)\"",
     
     "start": "jasminetea --file index.coffee --watch",
     "test": "jasminetea --file index.coffee --lint --cover --report",
@@ -29,10 +31,12 @@
   },
 
   "dependencies": {
+    "object-assign": "^4.0.1"
   },
   "devDependencies": {
     "browserify": "^11.2.0",
     "coffeeify": "^1.1.0",
+    "envify": "^3.4.0",
     "exorcist": "^0.4.0",
     "ghooks": "^0.3.2",
     "jasminetea": "^0.2.1",
