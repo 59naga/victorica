@@ -207,6 +207,30 @@ describe 'victorica',->
             <p>
       '''
 
+    it '#6',->
+      fixture= '''
+      <svg><g>
+      <path fill="rgba(0,0,0,255)" d="M0,0h10v10h-10Z"/>
+      <path fill="rgba(0,0,0,255)" d="M0,0h10v10h-10Z" />
+      <path fill="rgba(0,0,0,255)" d="M0,0h10v10h-10Z"/>
+      <path fill="rgba(0,0,0,255)" d="M0,0h10v10h-10Z" />
+      <path fill="rgba(0,0,0,255)" d="M0,0h10v10h-10Z"/>
+      </g></svg>
+      '''
+      result= victorica fixture,{removeSelfClose:false}
+
+      expect(result).toBe '''
+      <svg>
+        <g>
+          <path fill="rgba(0,0,0,255)" d="M0,0h10v10h-10Z"/>
+          <path fill="rgba(0,0,0,255)" d="M0,0h10v10h-10Z" />
+          <path fill="rgba(0,0,0,255)" d="M0,0h10v10h-10Z"/>
+          <path fill="rgba(0,0,0,255)" d="M0,0h10v10h-10Z" />
+          <path fill="rgba(0,0,0,255)" d="M0,0h10v10h-10Z"/>
+        </g>
+      </svg>
+      '''
+
     xit 'TODO: element of open implies close',->
       fixture= '''
       <ul><li>foo<li>bar<li>baz</ul>

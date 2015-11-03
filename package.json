@@ -1,6 +1,6 @@
 {
   "name": "victorica",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a simple html beautifier",
 
   "main": "lib",

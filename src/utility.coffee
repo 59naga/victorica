@@ -116,7 +116,7 @@ class Utility
 
       return {name,open,content,close,last,alone:yes,void:isVoid,ignore:yes}
 
-    alone= isVoid
+    alone= isVoid or isSelfClose
     if isOpen
       alone= (str.indexOf '</'+name+'>',right) is (str.indexOf '<',right)
 
