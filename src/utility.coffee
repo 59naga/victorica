@@ -97,10 +97,23 @@ class Utility
 
     # handle as alone. To disable the indentation(for level)
     if name in ignores
+      overlapOpen= new RegExp '<'+name+'\\W'
       close= '</'+name+'>'
 
       begin= str.indexOf '>',offset
       end= str.indexOf close,begin
+      beginOverlap= (str.slice(begin).search overlapOpen)
+      beginOverlap+= begin if beginOverlap isnt -1
+
+      # skip overlapped child element
+      while beginOverlap > -1 and end > beginOverlap
+        end= str.indexOf close,end+close.length
+        beginOverlapRelative= (str.slice(beginOverlap+1).search overlapOpen)
+        beginOverlap=
+          if beginOverlapRelative is -1
+            -1
+          else
+            beginOverlapRelative + beginOverlap+1
 
       if end is -1
         close= ''
@@ -111,7 +124,7 @@ class Utility
 
       else
         content= str.slice begin+1,end
-      
+
       last= end+close.length
 
       return {name,open,content,close,last,alone:yes,void:isVoid,ignore:yes}
