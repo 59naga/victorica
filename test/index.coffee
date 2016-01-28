@@ -231,6 +231,43 @@ describe 'victorica',->
       </svg>
       '''
 
+    describe '#7 should be beautify the overraped inline elements',->
+      it 'span>span',->
+        fixture= '''
+        <html><span><span></span></span></html>
+        '''
+
+        result= victorica fixture
+        expect(result).toBe '''
+        <html>
+          <span><span></span></span>
+        </html>
+        '''
+
+      it 'span>div>span',->
+        fixture= '''
+        <html><span><div><span></span></div></span></html>
+        '''
+
+        result= victorica fixture
+        expect(result).toBe '''
+        <html>
+          <span><div><span></span></div></span>
+        </html>
+        '''
+
+      it 'a>abbr>acronym>b',->
+        fixture= '''
+        <html><a><abbr><acronym><b>foo!</b></acronym></abbr></a></html>
+        '''
+
+        result= victorica fixture
+        expect(result).toBe '''
+        <html>
+          <a><abbr><acronym><b>foo!</b></acronym></abbr></a>
+        </html>
+        '''
+
     xit 'TODO: element of open implies close',->
       fixture= '''
       <ul><li>foo<li>bar<li>baz</ul>
