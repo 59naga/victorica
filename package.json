@@ -24,11 +24,6 @@
     "postbuild": "rm $(opc bower name).js $(opc bower name).js.map && wc -c $(opc bower name).min.js",
     "update": "git tag v$(opc package version) && git push --tags"
   },
-  "config": {
-    "ghooks": {
-      "pre-commit": "npm test"
-    }
-  },
 
   "dependencies": {
     "object-assign": "^4.0.1"
@@ -38,7 +33,6 @@
     "coffeeify": "^1.1.0",
     "envify": "^3.4.0",
     "exorcist": "^0.4.0",
-    "ghooks": "^0.3.2",
     "jasminetea": "^0.2.1",
     "object-parser-cli": "^0.0.1",
     "zuul": "^3.6.0"

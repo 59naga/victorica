@@ -15,8 +15,8 @@ class Victorica extends Utility
 
     if debug
       console.log '\n'
-      console.log 'Level, Open, Close, Ignore, Void, Alone, Uplevel'
-      console.log 'L O C I V A U -------- chunk --------'
+      console.log 'Level, Open, Close, Ignore, Alone, Void, Uplevel'
+      console.log 'L O C I A V U -------- chunk --------'
 
     level= 0
     offset= str.indexOf '<',offset
@@ -55,7 +55,8 @@ class Victorica extends Utility
 
       if debug
         console.log level,
-          ~~(tag.open?),~~(tag.close?),~~(tag.ignore?),~~tag.alone,~~tag.void
+          ~~(tag.open?),~~(tag.close?)
+          ~~(tag.ignore?),~~tag.alone,~~tag.void
           ~~(not (tag.close? or tag.alone or tag.void))
           JSON.stringify chunk
 
@@ -68,8 +69,8 @@ class Victorica extends Utility
       offset= str.indexOf '<',tag.last
 
     if debug
-      console.log 'L O C I V A U -------- chunk --------'
-      console.log 'Level, Open, Close, Ignore, Void, Alone, Uplevel'
+      console.log 'L O C I A V U -------- chunk --------'
+      console.log 'Level, Open, Close, Ignore, Alone, Void, Uplevel'
 
     return str if html is ''
 
